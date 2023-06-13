@@ -1,9 +1,24 @@
 // <reference types="Cypress" /> //Busca como rerencia os tipos do Cypress
 
 describe('Central de Atendimento ao Cliente TAT', function() {
-    it('verifica o título da aplicação', function() {
+    beforeEach(function(){ 
+        //(1) Como a url sempre será visitada é usado o beforeEach para não precisar de um cy.visit dentro de cada teste
         cy.visit('./src/index.html')
-        cy.title('').should('be.equal', 'Central de Atendimento ao Cliente TAT') //Verifica o titulo da pagina visitada e valida se é igual a
-  
     })
+
+    it('verifica o título da aplicação', function() {
+        cy.title('').should('be.equal', 'Central de Atendimento ao Cliente TAT') //Verifica o titulo da pagina visitada e valida se é igual a
+      })
+      //(2 e 3)
+      it.only('preenche os campos obrigatórios e envia o formulário', function(){
+        cy.get('#firstName').type('Elthon')
+        cy.get('#lastName').type('Coutinho')
+        cy.get('#email').type('elthon.teste@teste.com')
+        cy.get('#open-text-area').type('Preenchimento do campo de texto...')
+        cy.get('button[type="submit"]').click() //Elemento Inspecionado via Navegador
+
+        //(4)
+        cy.get('.success').should('be.visible')
+    })
+      
   })
