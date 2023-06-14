@@ -1,4 +1,4 @@
-// <reference types="Cypress" /> //Busca como rerencia os tipos do Cypress
+/// <reference types="Cypress" /> //Busca como rerencia os tipos do Cypress
 
 describe('Central de Atendimento ao Cliente TAT', function() {
     beforeEach(function(){ 
@@ -11,10 +11,11 @@ describe('Central de Atendimento ao Cliente TAT', function() {
       })
       //(2 e 3)
       it.only('preenche os campos obrigatórios e envia o formulário', function(){
+        const longText = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'
         cy.get('#firstName').type('Elthon')
         cy.get('#lastName').type('Coutinho')
         cy.get('#email').type('elthon.teste@teste.com')
-        cy.get('#open-text-area').type('Preenchimento do campo de texto...')
+        cy.get('#open-text-area').type(longText, {delay: 0}) // Variavel longText + Remoção do Delay (Delay = 0)
         cy.get('button[type="submit"]').click() //Elemento Inspecionado via Navegador
 
         //(4)
