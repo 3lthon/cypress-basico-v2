@@ -30,9 +30,33 @@ describe('Central de Atendimento ao Cliente TAT', function() {
 
         cy.get('.error').should('be.visible') //verificacao da mensagem de erro
     })
-      it.only('campo telefone deve ficar vazio se preenchido com valor não númerico', function() {
+
+      it('campo telefone deve ficar vazio se preenchido com valor não númerico', function() {
         cy.get('#phone')
         .type('abcdefg')
         .should('have.value', '')
+      })
+
+      it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function() {
+        cy.get('#firstName').type('Elthon')
+        cy.get('#lastName').type('Coutinho')
+        cy.get('#email').type('elthon.teste@teste.com')
+        cy.get('#phone-checkbox').click()
+        cy.get('#open-text-area').type('teste') 
+        cy.get('button[type="submit"]').click() 
+
+        cy.get('.error').should('be.visible') //verificacao da mensagem de erro
+      })
+
+      it.only('preenche e limpa os campos nome, sobrenome, email e telefone', function() {
+        cy.get('#firstName')
+          .type('Elthon')
+          .should('have.value', 'Elthon') // Verifica se o texto = Elthon
+          .clear() // Limpa o campo FirstName
+          .should('have.value', '') // Verifica se o texto = Vazio
+        
+        cy.get('#lastName').type('Coutinho').should('have.value', 'Coutinho').clear().should('have.value', '')
+        cy.get('#email').type('elthon.teste@teste.com').should('have.value', 'elthon.teste@teste.com').clear().should('have.value', '')
+        cy.get('#phone').type('988774455').should('have.value', '988774455').clear().should('have.value', '')   
       })
   })
