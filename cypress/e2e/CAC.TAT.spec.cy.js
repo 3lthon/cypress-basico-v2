@@ -1,4 +1,4 @@
-/// <reference types="Cypress" /> //Busca como rerencia os tipos do Cypress
+// <reference types="Cypress" /> //Busca como rerencia os tipos do Cypress
 
 describe('Central de Atendimento ao Cliente TAT', function() {
     beforeEach(function(){ 
@@ -17,12 +17,11 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#email').type('elthon.teste@teste.com')
         cy.get('#open-text-area').type(longText, {delay: 0}) // Variavel longText + Remoção do Delay (Delay = 0)
         cy.get('button[type="submit"]').click() //Elemento Inspecionado via Navegador
-
         //(4)
         cy.get('.success').should('be.visible') //Verificacao da mensagem de sucesso
-
+    })
     //Teste de Cenários alternativos
-    it.only('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida')
+    it.only('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', function(){
         cy.get('#firstName').type('Elthon')
         cy.get('#lastName').type('Coutinho')
         cy.get('#email').type('elthon.teste-teste.com')
