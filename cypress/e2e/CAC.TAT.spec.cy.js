@@ -48,7 +48,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('.error').should('be.visible') //verificacao da mensagem de erro
       })
 
-      it.only('preenche e limpa os campos nome, sobrenome, email e telefone', function() {
+      it('preenche e limpa os campos nome, sobrenome, email e telefone', function() {
         cy.get('#firstName')
           .type('Elthon')
           .should('have.value', 'Elthon') // Verifica se o texto = Elthon
@@ -58,5 +58,10 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#lastName').type('Coutinho').should('have.value', 'Coutinho').clear().should('have.value', '')
         cy.get('#email').type('elthon.teste@teste.com').should('have.value', 'elthon.teste@teste.com').clear().should('have.value', '')
         cy.get('#phone').type('988774455').should('have.value', '988774455').clear().should('have.value', '')   
+      })
+
+      it.only('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios.', function() {
+        cy.get('button[type="submit"]').click() // Clica no botão submit
+        cy.get('.error').should('be.visible') // Mensagem de erro deve estar visivel
       })
   })
